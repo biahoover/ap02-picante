@@ -28,7 +28,7 @@
             align-items: center;
         }
         .button {
-            display: block;
+            display: none; /* Esconde o botão inicialmente */
             width: 80%;
             max-width: 250px;
             padding: 15px;
@@ -41,6 +41,14 @@
             border-radius: 8px;
             transition: background-color 0.3s, box-shadow 0.3s;
         }
+        .button-telegram {
+            background-color: #0088cc;
+            box-shadow: 0 0 15px #0088cc;
+            animation: pulse 1.5s infinite;
+        }
+        .button-telegram:hover {
+            background-color: #005e9e;
+        }
         @keyframes pulse {
             from {
                 transform: scale(1);
@@ -48,14 +56,6 @@
             to {
                 transform: scale(1.05);
             }
-        }
-        .button-telegram {
-            background-color: #0088cc; /* Cor azul do ícone do Telegram */
-            box-shadow: 0 0 15px #0088cc; /* Sombra azul do ícone do Telegram */
-            animation: pulse 1.5s infinite; /* Adicionando a animação de pulsação */
-        }
-        .button-telegram:hover {
-            background-color: #005e9e; /* Cor azul escuro quando hover */
         }
     </style>
 </head>
@@ -105,18 +105,11 @@
 
             if (!purchaseEventRegistered) {
                 fbq('track', 'Purchase');
-
-                // Marca o evento de compra como registrado
                 setCookie('purchaseEventRegistered', 'true', 365); // Valido por 1 ano
             }
 
-            // Adiciona listener ao botão
-            document.getElementById('telegramButton').addEventListener('click', function(event) {
-                if (typeof fbq === 'undefined') {
-                    event.preventDefault();
-                    alert("O Pixel do Facebook ainda não foi carregado. Por favor, tente novamente em alguns instantes.");
-                }
-            });
+            // Mostra o botão após o Pixel ser carregado
+            document.getElementById('telegramButton').style.display = 'block';
         });
     </script>
 </body>
